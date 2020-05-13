@@ -47,8 +47,8 @@ RUN \
     && rm -rf /go/src/ && rm -rf /go/pkg
 
 # Install AzDO terraform provider
-RUN git clone https://github.com/microsoft/terraform-provider-azuredevops.git \
-    && (cd ${TERRAFORM_PROVIDER_AZUREDEVOPS_NAME} && make build) \
+ADD . ${TERRAFORM_PROVIDER_AZUREDEVOPS_NAME}
+RUN (cd ${TERRAFORM_PROVIDER_AZUREDEVOPS_NAME} && make build) \
     && rm -rf ${TERRAFORM_PROVIDER_AZUREDEVOPS_NAME}
 
 # Git command prompt
@@ -60,3 +60,5 @@ RUN echo "alias tf=terraform" >> "/root/.bashrc"
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
+
+RUN curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh -s -- "v0.132.1"

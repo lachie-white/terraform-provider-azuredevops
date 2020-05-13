@@ -15,12 +15,14 @@ var provider = Provider()
 
 func TestAzureDevOpsProvider_HasChildResources(t *testing.T) {
 	expectedResources := []string{
+		"azuredevops_resource_authorization",
 		"azuredevops_build_definition",
 		"azuredevops_project",
 		"azuredevops_serviceendpoint_github",
 		"azuredevops_serviceendpoint_dockerhub",
 		"azuredevops_serviceendpoint_azurerm",
 		"azuredevops_serviceendpoint_bitbucket",
+		"azuredevops_serviceendpoint_kubernetes",
 		"azuredevops_variable_group",
 		"azuredevops_git_repository",
 		"azuredevops_user_entitlement",
@@ -65,8 +67,8 @@ func TestAzureDevOpsProvider_SchemaIsValid(t *testing.T) {
 	}
 
 	tests := []testParams{
-		{"org_service_url", true, "AZDO_ORG_SERVICE_URL", false},
-		{"personal_access_token", true, "AZDO_PERSONAL_ACCESS_TOKEN", true},
+		{"org_service_url", false, "AZDO_ORG_SERVICE_URL", false},
+		{"personal_access_token", false, "AZDO_PERSONAL_ACCESS_TOKEN", true},
 	}
 
 	schema := provider.Schema
